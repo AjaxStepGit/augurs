@@ -12,6 +12,7 @@ import { TrashIcon } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '../ui/button'
 import { BASEURL } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
 
 export default function DeleteModal({ id }: { id: string }) {
     const handleSubmit = async () => {

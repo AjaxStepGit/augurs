@@ -9,8 +9,9 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import { IBooks } from '@/lib/types'
-import { TrashIcon } from 'lucide-react'
+import { Edit2Icon, TrashIcon } from 'lucide-react'
 import DeleteModal from './modal/delete'
+import Link from 'next/link'
 
 export default function BookTable({ books }: { books: IBooks[] }) {
     return (
@@ -42,7 +43,13 @@ export default function BookTable({ books }: { books: IBooks[] }) {
                                 {book.status}
                             </TableCell>
                             <TableCell>
-                                <DeleteModal id={`${book.id}`} />
+                                <div className="flex gap-2 items-center ">
+                                    <Link href={`/edit-book/${book.id}`}>
+                                        <Edit2Icon />
+                                    </Link>
+
+                                    <DeleteModal id={`${book.id}`} />
+                                </div>
                             </TableCell>
                         </TableRow>
                     ))}

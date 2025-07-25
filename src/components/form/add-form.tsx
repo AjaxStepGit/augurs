@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/select'
 import { IBooks } from '@/lib/types'
 import { BASEURL } from '@/lib/utils'
+import { redirect } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
@@ -39,6 +40,17 @@ export default function AddForm() {
             const data = await res.json()
 
             toast(`${data.message}`)
+
+            setBook({
+                id: -1,
+                title: '',
+                author: '',
+                genre: '',
+                status: 'available',
+                year: '',
+            })
+
+            redirect('/')
         } catch (e) {
             toast(`Something went wrong`)
         }
