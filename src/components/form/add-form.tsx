@@ -12,8 +12,8 @@ import {
     SelectValue,
 } from '@/components/ui/select'
 import { IBooks } from '@/lib/types'
-import { BASEURL } from '@/lib/utils'
-import { redirect } from 'next/navigation'
+import { BASE_URL, ErrorObject, validateBook } from '@/lib/utils'
+import { redirect, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
@@ -27,30 +27,52 @@ export default function AddForm() {
         year: '',
     })
 
+    const [error, setError] = useState<ErrorObject>({
+        title: '',
+        author: '',
+        genre: '',
+        year: '',
+    })
+
+    const router = useRouter()
+
     const handleSubmit = async () => {
+        const errors = validateBook(book)
+
+        if (Object.keys(errors).length > 0) {
+            setError(errors)
+            return
+        }
         try {
-            const res = await fetch(`${BASEURL}/routing/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(book),
-            })
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/routing/`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(book),
+                }
+            )
 
             const data = await res.json()
 
-            toast(`${data.message}`)
+            if (data.status === 201) {
+                toast(`${data.message}`)
 
-            setBook({
-                id: -1,
-                title: '',
-                author: '',
-                genre: '',
-                status: 'available',
-                year: '',
-            })
+                setBook({
+                    id: -1,
+                    title: '',
+                    author: '',
+                    genre: '',
+                    status: 'available',
+                    year: '',
+                })
 
-            redirect('/')
+                router.push('/')
+            } else {
+                toast('Something went wrong !!')
+            }
         } catch (e) {
             toast(`Something went wrong`)
         }
@@ -75,6 +97,7 @@ export default function AddForm() {
                         })
                     }}
                 />
+                <Label className="text-red-500">{error.title}</Label>
             </div>
             <div className="gap-2 flex flex-col">
                 <Label className="text-white font-black">Author Name</Label>
@@ -93,6 +116,7 @@ export default function AddForm() {
                         }
                     }}
                 />
+                <Label className="text-red-500">{error.author}</Label>
             </div>
             <div className="gap-2 flex flex-col">
                 <Label className="text-white font-black">Genre</Label>
@@ -111,6 +135,7 @@ export default function AddForm() {
                         }
                     }}
                 />
+                <Label className="text-red-500">{error.genre}</Label>
             </div>
             <div className="gap-2 flex flex-col">
                 <Label className="text-white font-black">Published Year</Label>
@@ -127,6 +152,7 @@ export default function AddForm() {
                         })
                     }
                 />
+                <Label className="text-red-500">{error.year}</Label>
             </div>
             <div className="gap-2 flex flex-col">
                 <Label className="text-white font-black">Status</Label>

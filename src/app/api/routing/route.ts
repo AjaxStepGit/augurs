@@ -1,5 +1,5 @@
+import { books } from '@/app/_lib/test-data'
 import { IBooks } from '@/lib/types'
-import { books } from '../_lib/test-data'
 
 export async function GET() {
     return Response.json(books)
@@ -22,6 +22,7 @@ export async function POST(request: Request) {
         {
             message: 'Book added successfully',
             book: newBook,
+            status: 201,
         },
         {
             status: 201,

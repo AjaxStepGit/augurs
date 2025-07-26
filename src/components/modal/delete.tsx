@@ -7,21 +7,22 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog'
-import { DialogClose } from '@radix-ui/react-dialog'
 import { TrashIcon } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '../ui/button'
-import { BASEURL } from '@/lib/utils'
-import { useRouter } from 'next/navigation'
+import { BASE_URL } from '@/lib/utils'
 
 export default function DeleteModal({ id }: { id: string }) {
     const handleSubmit = async () => {
-        const res = await fetch(`${BASEURL}/routing/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/routing/${id}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        )
 
         const data = await res.json()
 

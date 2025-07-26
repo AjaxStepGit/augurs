@@ -27,6 +27,7 @@ export async function PATCH(
         return Response.json(
             {
                 message: 'Book Not Found',
+                status: 401,
             },
             { status: 401 }
         )
@@ -40,6 +41,7 @@ export async function PATCH(
     return Response.json({
         message: 'Book Information Edited',
         book: books[index],
+        status: 201,
     })
 }
 
@@ -55,5 +57,6 @@ export async function DELETE(
 
     return Response.json({
         message: 'Book Removed  Successfully !!',
+        status: 201,
     })
 }
