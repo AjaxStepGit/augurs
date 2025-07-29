@@ -9,9 +9,9 @@ export default async function Home() {
     const data = await res.json()
 
     return (
-        <div className="flex w-screen h-screen justify-center bg-primary">
+        <div className="flex w-screen h-auto justify-center bg-primary md:h-screen">
             <div className="flex flex-col gap-12 w-full p-4 items-center">
-                <h1 className="text-8xl font-black uppercase text-white my-4">
+                <h1 className="text-6xl text-center font-black uppercase text-white my-4 md:text-8xl">
                     Books Club
                 </h1>
 

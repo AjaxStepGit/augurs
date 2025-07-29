@@ -81,7 +81,7 @@ export default function AddForm() {
     const regex = /^[A-Za-z\s]+$/
 
     return (
-        <div className="flex flex-col gap-6 p-4 border-2 border-white justify-center w-fit min-w-lg rounded-xl">
+        <div className="flex flex-col gap-6 p-4 border-2 border-white justify-center w-full md:min-w-lg rounded-xl">
             <div className="gap-2 flex flex-col">
                 <Label className="text-white font-black">Book Title</Label>
                 <Input

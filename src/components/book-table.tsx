@@ -16,7 +16,7 @@ export default function BookTable({ books }: { books: IBooks[] }) {
         <div className="p-2 w-full">
             <Table className="w-full">
                 <TableHeader className="w-full">
-                    <TableRow className="w-full text-white font-semibold text-3xl">
+                    <TableRow className="w-full text-white font-semibold text-xl md:text-3xl">
                         <TableHead className="capitalize">Title</TableHead>
                         <TableHead className="capitalize">Author</TableHead>
                         <TableHead className="capitalize">genre</TableHead>
